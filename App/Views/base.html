@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- favicon  -->
+    <link href="./assets/img/logo1.jpg" width="16" rel="icon" type="image/jpg">
+
+   <!-- fontawesome  -->
+   <link href="assets/css/all.min.css" rel="stylesheet" type="text/css">
+
+    <!-- bootstrap css 1 js1 -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet"  type="text/css" />
+
+    <!-- custom css -->
+    <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
+     
+<body id="nightbody">
+    
+	<div class="container-fluid" >
+        <div class="row">
+  
+      
+        <!-- navbar section  -->
+            
+        <div id="navbarone" class="my-2 mb-5">
+            <nav class="navbar navbar-expand-sm fixed-top mt-2 customnavbar">
+                <div class="container-fluid">
+                  <a class="navbar-brand displayfixer" href="#">
+                        <div class="barndcontainer">
+                           
+                        </div>
+                        <span class="navbarfontsize mx-2">Morning Star Translation MM</span>
+
+                </a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto mb-1 mb-lg-0 customul">
+                      <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Help</a>
+                      </li>
+                      <li class="nav-item">
+                       
+                            <div class="nav-link displayfixer"  onclick="changedayandnight()" id="togglesunandmoon">
+                                <div id="daynighttoggler">
+                                        <img src="./assets/img/moon.png" class="toggleicon" id="toggleiconone"  alt="">
+                                </div>
+                                <div class="toggletext ms-2">
+                                    <span id="dayone">Night</span>
+                                </div>
+                            </div>
+                      
+                      </li>
+                     
+                    </ul>
+                    <div class="user-container displayfixer">
+                        <div class="starcontainer displayfixer rounded-pill ">
+                            <div class="pointcontainer me-2 my-2 displayfixer">500</div>
+                            
+                            <div class="starimgcontaiiner">
+                                <!-- <img src="./assets/img/star.png" width="30" alt="star"> -->
+                            </div>
+                          
+                       </div>
+                       <div class="usernamecontainer mx-2">Myat Min Htay</div>
+
+                        <div class="userimgcontainer">
+                            <!-- <img src="./assets/img/profile.png" width="50" alt="user"> -->
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </nav>
+        </div>
+
+        <div id="navbartwo" class="my-2 mb-5">
+          <nav class="navbar navbar-dark customnavbar mt-2 fixed-top">
+            <div class="container-fluid justify-content-start">
+              <button class="navbar-toggler navbartogglerbuttons mb-2 ms-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
+                <i class="fa-solid fa-bars"></i>
+              </button>
+              <a class="navbar-brand displayfixer ms-2 mb-3" href="#">
+                  <div class="barndcontainer">
+                            
+                  </div>
+                  <span class="navbarfontsize mx-2">Morning Star Translation MM</span>
+              </a>
+              
+              <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+                <div class="offcanvas-header">
+                  <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Morning Star Translation MM</h5>
+                  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                  <div class="user-container d-flex align-items-center">
+                    <div class="userimgcontainer">
+                      <!-- <img src="./assets/img/profile.png" width="50" alt="user"> -->
+                  </div>
+                  <div class="usernamecontainer mx-2">Myat Min Htay</div>
+                      <div class="starcontainer displayfixer rounded-pill ">
+                          <div class="pointcontainer me-2 my-2 displayfixer">500</div>
+                        
+                          <div class="starimgcontaiiner">
+                              <!-- <img src="./assets/img/star.png" width="30" alt="star"> -->
+                          </div>
+                        
+                    </div>
+
+                   
+                  </div>
+
+                  <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <li class="nav-item">
+                      <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Help</a>
+                    </li>
+                    <li class="nav-item">
+                       
+                      <div class="nav-link d-flex" onclick="changedayandnight()" id="togglesunandmoon2">
+                          <div id="daynighttoggler">
+                                  <img src="./assets/img/moon.png" id="toggleicontwo" class="toggleicon"  alt="">
+                          </div>
+                          <div class="toggletext ms-2">
+                              <span id="daytwo">Night</span>
+                          </div>
+                      </div>
+                
+                </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </div>
+         
+
+        
+        
+        <!-- navbar section  -->                         
+ 
+
+            {% for message in flash_messages %}
+                <div class="alert alert-{{ message.type }} mt-3">
+                    {{ message.body }}
+                </div>
+            {% endfor %}
+
+            {% block body %}
+
+            {% endblock %}
+        </div>
+    </div>
+
+
+
+
+    <!-- jquery js1  -->
+    <script src="/assets/js/jquery.min.js" type="text/javascript"></script>
+
+    <!-- bootstrap css1 js1  -->
+    <script src="/assets/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+
+    <!-- sweetalert2  -->
+    <script src="/assets/js/sweetalert2.all.min.js"></script>
+    
+    <!-- custom js  -->
+    <script src="/assets/js/app.js" type="text/javascript"></script>
+
+
+    <!-- jquery validate  -->
+    <script src="/assets/js/jquery.validate.min.js"></script>
+
+
+    {% block footer %}
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,27 @@
+Morning Star Translation Note
+
+domainname = www.morningstartranslatiomm.com
+
+1. Website ထဲကို ဝင်ဝင်ချင်း Home route ကိုပြမယ်။ အဲ့တာက က​ြို design ဆွဲထားတဲ့ အတိုင်းပဲ။
+About page ပါမယ်။
+Contact Page ပါမယ်။
+Help ပါမယ်။
+
+Navbar မှာ home,about,conatct,help ပါမယ်။ sign in , sign out က အောက်မှာ 
+အဲ့တော့ ဘေးဘက် အစွန်ဆုံးမှာ user image အဝိုင်းလေးပြမယ်ပြီးတော့ သူ့မှာရှိမယ့် star ကို ပြမယ်။
+
+ကျန်တာကတော့ design ထဲက အတိုင်းပဲ။
+
+နောက် About မှာ About us , our team, Goal  တွေပါမယ်။
+
+Conatct Page မှာ ဆက်သွယ်လို့ရမယ့် admin account တွေပါမယ်။
+admin team အတွက် card လေးတွေနဲ့ပြထားပေးမယ်။
+
+Help မှာကျ Faq တွေ ပြထားပေးမယ်။
+
+
+1.  Login ကို နှိပ်နှိပ်ချင်း User Table ထဲမှာ တစ်ယောက်မှ မရှိသေးရင် 
+System Role Table ထဲကို auto record တစ်ကြောင်းထည့်မယ် ပြီးတော့ Admin Account Sign up 
+လုပ်ခိုင်းမယ်။
+
+2.  Account Create လုပ်ပြီးရင် 

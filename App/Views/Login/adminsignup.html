@@ -1,0 +1,254 @@
+{% extends "base.html" %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block body %}
+        
+
+        <div class="container-fluid login-bg py-5">
+            <div class="row justify-content-center py-3 mt-3">
+                <div class="col-md-9 col-lg-6 shadow rounded-2 mt-5" style="border-bottom: 5px solid black;">
+                    <div class="row justify-content-center ">
+                        <div class="col-6 bg-aliceblue d-none d-md-block pt-5">
+                            <h6 class="text-dark text-center ms-3 mt-1">Welcome to</h6>
+                            <h4 class="text-dark text-center mb-5">Golf Club Point Of Sales</h4>
+                            <div class="text-center">
+                                <img src="/assets/img/ppt-logo-small.png" class="logoWH" alt="ppt-logo-small">
+                            </div>
+                        </div>
+
+                        <div class="col-11 col-md-6 bg-aliceblue p-4">
+                            <!-- title text -->
+                            <div class="row">
+                                <h3 class="login-font ms-2">Sign Up</h3>
+                            </div>
+
+                            <!-- Sign up form -->
+                            <form action="" method="post" id="signUpForm">
+
+                                <!-- User name -->
+                                <div class="d-flex flex-column mb-2">
+                                    <div class="input-group ms-2 col-5 col-sm-4 input-group-width">
+                                        <span class="input-group-text text-info px-2 py-0">
+                                            <i class="fa-regular fa-user"></i>
+                                        </span>
+                                        <input type="text" class="form-control text-start" id="userName"
+                                            aria-label="loginUserName" placeholder="User Name..." required>
+                                    </div>
+                                </div>
+
+                                <!-- Display name -->
+                                <div class="d-flex flex-column mb-2">
+                                    <div class="input-group ms-2 col-5 col-sm-4 input-group-width">
+                                        <span class="input-group-text text-info px-2 py-0">
+                                            <i class="fa-regular fa-user"></i>
+                                        </span>
+                                        <input type="text" class="form-control text-start" id="displayName"
+                                            aria-label="displayName" placeholder="Display Name...">
+                                    </div>
+                                </div>
+
+                                <!-- User password -->
+                                <div class="d-flex flex-column mb-2">
+                                    <div class="input-group ms-2 col-5 col-sm-4 input-group-width">
+                                        <span class="input-group-text text-info px-2 py-0">
+                                            <i class="fa-solid fa-key"></i>
+                                        </span>
+                                        <input type="password" class="form-control text-start" id="loginPassword"
+                                            aria-label="loginPassword" placeholder="Password..." required>
+                                        <span class="input-group-text text-info bg-white px-2 py-0">
+                                            
+                                            <i class="fa-solid fa-eye eyeIconFun1" id="eyeIcon1"></i>
+                                        </span>
+                                    </div>
+                                    <span class="text-aliceblue text-danger mx-2 mt-2 px-1" id="errorMessageForNum"><i class="fa-solid fa-triangle-exclamation"></i> Please fill at least six!</span>
+                                    <span class="text-aliceblue text-danger mx-2 mt-2 px-1" id="errorMsgForPsCharacter"><i class="fa-solid fa-triangle-exclamation"></i> Please you must enter a to z, 0 to 9 and special characters.</span>
+                                </div>
+
+                                <!-- User confirm password -->
+                                <div class="d-flex flex-column mb-2">
+                                    <div class="input-group ms-2 col-5 col-sm-4 input-group-width">
+                                        <span class="input-group-text text-info px-2 py-0">
+                                            <i class="fa-solid fa-key"></i>
+                                        </span>
+                                        <input type="password" class="form-control text-start" id="confirmPassword"
+                                            aria-label="confirmPassword" placeholder="Confirm Password..." required>
+                                        <span class="input-group-text text-info bg-white px-2 py-0">
+                                            <i class="fa fa-eye eyeIconFun2" id="eyeIcon2"></i>
+                                        </span>
+                                    </div>
+                                    <span class="text-aliceblue text-danger mx-2 mt-2 px-1" id="errorMessage"><i class="fa-solid fa-triangle-exclamation"></i> Your confirm
+                                        password
+                                        is incorrect.</span>
+                                </div>
+
+                              
+
+
+                               
+
+                                <!-- Submit button -->
+                                <div class="text-center mt-3">
+                                    <button class="btn btn-primary py-1 px-5" style="width: 220px;" id="submitButton">Sign
+                                        Up</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}
+
+{% block footer%}
+
+        <script>
+
+        document.querySelector(".eyeIconFun1").addEventListener("click", function () { 
+        
+            DisplayPassword(document.getElementById('loginPassword'), this.id) 
+            
+        });
+
+        document.querySelector(".eyeIconFun2").addEventListener("click", function () { 
+            DisplayPassword(document.getElementById('confirmPassword'), this.id) 
+        });
+
+        document.querySelector("#signUpForm").addEventListener("submit", CheckCondition);
+
+           
+
+            var passw = /^[A-Za-z0-9-\!\~\@\&\#\$\%\^\&\*\(\)\{\}\?\-\_\+\=]/;
+
+            // Password at least six condition
+            document.querySelector("#loginPassword").addEventListener("blur", () => {
+
+                let x = document.getElementById("loginPassword").value;
+
+
+                if (x != "") {
+
+                    if (x.length >= 6) {
+
+                        let checkChar = true;
+
+                        for (let i = 0; i < x.length; i++) {
+
+                            if (x[i].match(passw)) {
+
+                                checkChar = true;
+                            }
+
+                            else {
+
+                                checkChar = false;
+                                break;
+                            }
+                        }
+
+                        if (checkChar) {
+
+                            document.querySelector("#errorMsgForPsCharacter").style.display = "none";
+                            document.querySelector("#loginPassword").classList.remove("errorMsg");
+
+                        } else {
+
+                            document.querySelector("#errorMsgForPsCharacter").style.display = "block";
+                            document.querySelector("#loginPassword").classList.add("errorMsg");
+                        }
+
+                        document.querySelector("#errorMessageForNum").style.display = "none";
+
+                    } else {
+
+                        document.querySelector("#errorMessageForNum").style.display = "block";
+                        document.querySelector("#loginPassword").classList.add("errorMsg");
+                        document.querySelector("#errorMsgForPsCharacter").style.display = "none";
+                    }
+
+                } else {
+
+                    document.querySelector("#errorMessageForNum").style.display = "none";
+                    document.querySelector("#loginPassword").classList.remove("errorMsg");
+                    document.querySelector("#errorMsgForPsCharacter").style.display = "none";
+                }
+
+            });
+
+            function CheckCondition(e) {
+
+                e.preventDefault();
+
+                let userName = e.target[0].value;
+                let displayUserName = e.target[1].value;
+                let userPassword = e.target[2].value;
+                let confirmUserPassword = e.target[3].value;
+                
+
+                var receipt = {};
+
+                if (userPassword === confirmUserPassword) {
+
+                    receipt.Username = userName.trim();
+
+                    receipt.DisplayName = displayUserName == "" ? userName.trim() : displayUserName.trim();
+
+                    receipt.Password = userPassword.trim();
+
+                    receipt.CreatedBy = "auto";
+
+                    document.querySelector("#confirmPassword").classList.remove("errorMsg");
+                    document.querySelector("#errorMessage").style.display = "none";
+
+                    
+
+                    
+                    signupdata = JSON.stringify(receipt);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/signup/create",
+                        data: signupdata,
+                        contentType: "application/json",
+                        success: function (result) {
+
+                                console.log(result);
+                            
+                        var userdata = JSON.parse(result);
+
+                            if(userdata.success){
+                                
+                                // save in localstorage 
+                                localStorage.setItem('success', userdata.success);
+
+                                MyFunction();
+                            }else if (userdata.error){
+                                alert(userdata.error);
+                            }
+                        
+                        
+                            
+                        },
+                        error: function (result, status) {
+
+                            console.log(result);
+                            
+                        }
+                    });
+                    
+
+                } else {
+
+                    document.querySelector("#confirmPassword").classList.add("errorMsg");
+                    document.querySelector("#errorMessage").style.display = "block";
+                }
+
+            };
+
+            
+
+        </script>
+
+
+{% endblock %}

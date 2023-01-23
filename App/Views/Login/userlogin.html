@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+
+
+    
+        <div class="container-fluid login-bg py-5">
+            <!-- <div class="row justify-content-center mt-5 pt-5">
+                <div class="col-md-6">
+                    <form id="loginForm" class="shadow-lg border-0 py-3 mx-auto px-3 rounded-3 bg-darkblue opacity-1" style="width: fit-content;">
+                        <div class="row">
+                            <h3 class="login-font ms-2">Login</h3>
+                        </div>
+                        <div class="d-flex flex-column mb-2">
+                            <div class="input-group ms-2 col-5 col-sm-4 input-group-width">
+                                <span class="input-group-text px-2 py-0">
+                                    
+                                    <i class="fa fa-circle-user text-navy"></i>
+                                </span>
+                                <input type="text" class="form-control text-start"
+                                    id="loginUserName" aria-label="loginUserName" placeholder="Username" required>
+                                
+                            </div>
+                            <span class="text-aliceblue bg-danger d-none mx-2 mt-2" id="usererrormessage">Username is incorrect.</span>
+                        </div>
+                        <div class="d-flex flex-column mb-2">
+                            <div class="input-group ms-2 col-5 col-sm-4 input-group-width">
+                                <span class="input-group-text px-2 py-0">
+                                 
+
+                                    <i class="fa fa-key text-navy"></i>
+                                </span>
+                                <input type="password" class="form-control text-start"
+                                    id="loginPassword" aria-label="loginPassword" placeholder="Password" required>
+                            </div>
+                            <span class="text-aliceblue bg-danger d-none mx-2 mt-2" id="passworderrormessage">Your password is incorrect.</span>
+                        </div>
+                        <div class="d-flex">
+                            <a href="#" class="ms-auto text-aliceblue forgot-font">Forgot Password?</a>
+                        </div>
+                        <div class="text-center mt-2">
+                            <button class="btn btn-light py-1 px-5" style="width: 220px;" type="submit">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div> -->
+
+
+            <div class="row justify-content-center py-5 mt-5">
+                <div class="col-md-9 col-lg-6 shadow rounded-2 mt-5" style="border-bottom: 5px solid black;">
+                    <div class="row justify-content-center ">
+                        <div class="col-6 bg-aliceblue d-none d-md-block pt-5">
+                            <h6 class="text-dark text-start ms-3 mt-3">Welcome to</h6>
+                            <h4 class="text-dark text-center mb-5">Golf Club POS</h4>
+                            <div class="pt-5 mb-1">
+                                <a href="https://futuremmtechnologists.com/" class="text-start mt-5 future-link" style="vertical-align: bottom;">Developed by Future Myanmar Technologists</a>
+                            </div>
+                        </div>
+                        <div class="col-6 bg-aliceblue p-4">
+                            <div class="row">
+                                <h3 class="login-font ms-2">Login</h3>
+                            </div>
+                            <form action="" id="loginForm">
+                                <div class="d-flex flex-column mb-2">
+                                    <div class="input-group ms-2 col-5 col-sm-4 input-group-width">
+                                        <span class="input-group-text px-2 py-0">
+                                           
+                                            <i class="fa fa-circle-user text-navy"></i>
+                                        </span>
+                                        <input type="text" class="form-control text-start"
+                                            id="loginUserName" aria-label="loginUserName" placeholder="Username" required>
+                                        
+                                    </div>
+                                    <span class="text-aliceblue bg-danger d-none mx-2 mt-2" id="usererrormessage">Username is incorrect.</span>
+                                </div>
+                                <div class="d-flex flex-column mb-2">
+                                    <div class="input-group ms-2 col-5 col-sm-4 input-group-width">
+                                        <span class="input-group-text px-2 py-0">
+                                           
+        
+                                            <i class="fa fa-key text-navy"></i>
+                                        </span>
+                                        <input type="password" class="form-control text-start"
+                                            id="loginPassword" aria-label="loginPassword" placeholder="Password" required>
+                                    </div>
+                                    <span class="text-aliceblue bg-danger d-none mx-2 mt-2" id="passworderrormessage">Your password is incorrect.</span>
+                                </div>
+                                <div class="d-flex">
+                                    <a href="#" class="ms-auto text-dark forgot-font">Forgot Password?</a>
+                                </div>
+                                <div class="text-center mt-2">
+                                    <button class="btn btn-dark py-1 px-5" style="width: 220px;" type="submit">Login</button>
+                                </div>
+                            </form>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+
+{% endblock %}
+
+{% block footer%}
+
+    <script type="text/javascript">
+        $("#loginForm").on('submit',function(event){
+            event.preventDefault();
+
+            var username = $("#loginUserName").val();
+            var password = $('#loginPassword').val();
+
+            var logindata = {};
+            logindata.username = username;
+            logindata.password = password;
+            logindata = JSON.stringify(logindata);
+
+
+            $.ajax({
+                type: "POST",
+                url: "/login/create",
+                data: logindata,
+                contentType: "application/json",
+                success: function (result) {
+
+                        console.log(result);
+                    
+                   var userdata = JSON.parse(result);
+
+                    if(userdata.status == 0){
+
+                        $("#usererrormessage").html(userdata.errormessage);
+                        $("#usererrormessage").removeClass("d-none");
+                        $("#usererrormessage").addClass("d-block");
+
+                        $("#passworderrormessage").html("");
+                        $("#passworderrormessage").removeClass("d-block");
+                        $("#passworderrormessage").addClass("d-none");
+                        
+                        
+                    }else if(userdata.status == 1){
+
+                        $("#usererrormessage").html("");
+                        $("#usererrormessage").removeClass("d-block");
+                        $("#usererrormessage").addClass("d-none");
+                        
+                        $("#passworderrormessage").html(userdata.errormessage);
+                        $("#passworderrormessage").removeClass("d-none");
+                        $("#passworderrormessage").addClass("d-block");
+      
+                    }else if(userdata.status == 2){
+
+                        // var user = JSON.stringify(userdata.user[0]);
+
+                        if(userdata.user[0].RoleName == 'Adminstrator'){
+                             var user = JSON.stringify(userdata.user[0]);
+                             localStorage.setItem('user',user);
+                             window.location.href = "/adminstration";
+                        }else{
+                            var user = JSON.stringify(userdata.user[0]);
+                             localStorage.setItem('user',user);
+                             window.location.href = "/sales";
+                        }
+                        
+                        
+
+                        
+                    }
+                   
+                
+                    
+                },
+                error: function (result, status) {
+
+                    console.log(result);
+                    
+                }
+            });
+        });
+    </script>
+ 
+{% endblock %}

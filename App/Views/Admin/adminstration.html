@@ -1,0 +1,707 @@
+{% extends "base.html" %}
+
+{% block title %}Adminstration{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid px-4 bg-darkslateblue" style="height: 100vh;">
+
+        <form action="" method="post" id="useraccountform">
+        
+        <div class="row mt-3 justify-content-between">
+            <div class="col-5 col-lg-3">
+                <h3 class="text-aliceblue text-start">User Account Creation</h3>
+            </div>
+           
+            <div class="col-3 col-lg-2 text-end">
+                <button type="submit" class="btn btn-light py-1" id="saveUserAccount">
+                    <span class="me-2"><i class="fa fa-save"></i></span> Save
+                </button>
+            </div>
+        </div>
+
+        </form>
+        <hr class="bg-aliceblue mt-1 mb-4">
+
+        <div class="row mt-3">
+            <div class="col-md-4 col-lg-3">
+                <div class="mb-2 row">
+                    <label for="systemUserName"
+                        class="form-label col-5 col-sm-4 sale-form-label mb-1 text-aliceblue text-end px-1">Username
+                        :</label>
+                    <div class="input-group user-form col-5 col-sm-8 px-1">
+                        <span class="input-group-text input-group-text-height px-2 py-0">
+                            <i class="fa fa-user-circle"></i>
+                        </span>
+                        <input type="text" class="form-control sale-form-input" id="systemUserName">
+                    </div>
+                    <p class="d-none text-warning text-center mt-1 mb-1 sale-form-label" id="requiredUsername"><span class="me-2"><i
+                        class="fa fa-warning"></i></span>Please fill out this field.</p>
+                </div>
+                <div class="mb-2 row">
+                    <label for="systemDisplayName"
+                        class="form-label sale-form-label col-5 col-sm-4 mb-1 text-aliceblue text-end px-1">Display Name
+                        :</label>
+                    <div class="input-group user-form col-5 col-sm-8 px-1">
+                        <span class="input-group-text input-group-text-height px-2 py-0">
+                            <i class="fa fa-user-circle"></i>
+                        </span>
+                        <input type="text" class="form-control sale-form-input" id="systemDisplayName">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <div class="mb-2 row">
+                    <label for="systemUserPassword"
+                        class="form-label sale-form-label col-5 col-sm-4 mb-1 text-aliceblue text-end px-1">Password
+                        :</label>
+                    <div class="input-group user-form col-5 col-sm-8 px-1">
+                        <span class="input-group-text input-group-text-height px-2 py-0">
+                            <i class="fa fa-key"></i>
+                        </span>
+                        <input type="password" class="form-control sale-form-input" id="systemUserPassword">
+                        <span class="input-group-text input-group-text-height eyeIconBox px-2 py-0">
+                            <i class="fa fa-eye pointer" id="displayPass"
+                                onclick="DisplayPassword(document.getElementById('systemUserPassword'), this.id)"></i>
+                        </span>
+                    </div>
+                    <p class="d-none text-warning text-center mt-1 mb-1 sale-form-label" id="requiredPassword"><span class="me-2"><i
+                        class="fa fa-warning"></i></span>Please fill out this field.</p>
+                    <p class="d-none text-danger mt-1 mb-1 sale-form-label ms-5" id="needPasswordError"><span
+                            class="me-2"><i class="fa fa-warning"></i></span>Password must have at least 6.</p>
+                    <p class="d-none text-danger mt-1 mb-1 sale-form-label ms-5" id="passCharError"><span class="me-2"><i
+                                class="fa fa-warning"></i></span>Only use letters, numbers, and common punctuation characters</p>
+                </div>
+                <div class="mb-2 row" id="confirmPassRow">
+                    <label for="systemUserConfirmPass"
+                        class="form-label sale-form-label col-5 col-sm-4 mb-1 text-aliceblue text-end px-1">Confirm
+                        Password
+                        :</label>
+                    <div class="input-group user-form col-5 col-sm-8 px-1">
+                        <span class="input-group-text input-group-text-height px-2 py-0">
+                            <i class="fa fa-key"></i>
+                        </span>
+                        <input type="password" class="form-control sale-form-input" id="systemUserConfirmPass">
+                        <span class="input-group-text input-group-text-height eyeIconBox px-2 py-0">
+                            <i class="fa fa-eye pointer" id="displayConfirmPass"
+                                onclick="DisplayPassword(document.getElementById('systemUserConfirmPass'), this.id)"></i>
+                        </span>
+                    </div>
+                    <p class="d-none text-warning text-center mt-1 mb-1 sale-form-label" id="requiredConPassword"><span class="me-2"><i
+                        class="fa fa-warning"></i></span>Please fill out this field.</p>
+                    <p class="d-none text-danger mt-1 mb-1 sale-form-label ms-5" id="confirmPassError"><span class="me-2"><i
+                                class="fa fa-warning"></i></span> Password did not match. Try again.</p>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <div class="mb-2 row">
+                    <label for="typeOfRole"
+                        class="form-label sale-form-label col-5 col-sm-4 mb-1 text-aliceblue text-end px-1">Type Of Role
+                        :</label>
+                    <div class="input-group user-form-select col-5 col-sm-6 px-1">
+                        <select class="form-select sale-form-select py-0 px-1" aria-label=".form-select example"
+                            id="typeOfRole" required>
+                            {% if systemroles %}
+                    
+                                    {% for systemrole in systemroles %}
+
+                                        <option value="{{ systemrole.RoleId}}">{{ systemrole.RoleName }}</option>
+
+                                    {% endfor %}
+
+                                {% endif %}
+                        </select>
+                    </div>
+                    <div class="col-2 col-sm-1 px-0">
+                        <button class="btn btn-light py-0 px-1" data-bs-toggle="modal" data-bs-target="#userRoleModal"><i
+                                class="fa fa-plus-circle"></i></button>
+                    </div>
+                    <p class="d-none text-warning text-center mt-1 mb-1 sale-form-label" id="requiredSystemRole"><span class="me-2"><i
+                        class="fa fa-warning"></i></span>Please fill out this field.</p>
+                </div>
+                <div class="mb-2 row">
+                    <label for="systemUserStatus"
+                        class="form-label sale-form-label col-5 col-sm-4 mb-1 text-aliceblue text-end px-1">User Status
+                        :</label>
+                    <div class="col-5 col-sm-8 px-1 ">
+                        <div class="form-check">
+                            <input class="form-check-input mt-2" type="radio" value="Active"  name="systemUserStatus" id="systemUserActive"
+                                style="height: 15px;" checked>
+                            <label class="form-check-label sale-form-label text-aliceblue"
+                                for="systemUserActive">Active</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input mt-2" type="radio" value="Disabled" name="systemUserStatus"
+                                id="systemUserDisabled" style="height: 15px;">
+                            <label class="form-check-label sale-form-label text-aliceblue"
+                                for="systemUserDisabled">Disabled</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input mt-2" type="radio" value="Locked" name="systemUserStatus" id="systemUserLocked"
+                                style="height: 15px;">
+                            <label class="form-check-label sale-form-label text-aliceblue"
+                                for="systemUserLocked">Locked</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <div class="mb-2 row">
+                    <label for="systemUserRemark"
+                        class="form-label sale-form-label mb-1 text-aliceblue col-5 col-sm-4 px-1 text-end">Remark
+                        :</label>
+                    <div class="input-group user-form px-1 col-5 col-sm-8">
+                        <textarea id="systemUserRemark" class="form-control" cols="30" rows="2"></textarea>
+                    </div>
+                </div>
+                
+            </div>
+        
+        </div>
+    
+
+        <div class="row mt-3 bg-aliceblue ">
+            <div class="user-scroll px-0">
+                <table class="table table-bordered text-dark table-responsive">
+
+                    <thead class="bg-navy text-aliceblue sticky-top ">
+                        <th class="text-center">User<span class="ms-2">Name</span></th>
+                        <th class="text-center">Display Name</th>
+                        <th class="text-center">System Role</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Created Date</th>
+                        <th class="text-center">Created By</th>
+                        <th class="text-center">Modified Date</th>
+                        <th class="text-center">Modified By</th>
+                        <th class="text-center">Action</th>
+                    </thead>
+
+                    <tbody class="saleVouchers">
+
+                        {% if users %}
+
+                        {% for user in users %}
+                        <tr>
+                            <td class="text-start py-1">{{ user.Username }}</td>
+                            <td class="text-start py-1">{{ user.DisplayName }}</td>
+                            <td class="text-center py-1">{{ user.RoleName }}</td>
+                            <td class="text-center py-1">{{ user.RecordStatus }}</td>
+                            <td class="text-center py-1">{{ user.CreatedDate }}</td>
+                            <td class="text-start py-1">{{ user.CreatedBy }}</td>
+                            <td class="text-center py-1">{{ user.ModifiedDate }}</td>
+                            <td class="text-start py-1">{{ user.ModifiedBy}}</td>
+                            <td class="text-center py-1">
+                                <button class="btn p-0" id="{{ user.Username }}" data-bs-toggle="modal"
+                                    data-bs-target="#details" onclick="DisplayVoucherDetails(this.id)"><i
+                                        class="fa fa-circle-arrow-up text-dark"></i></button>
+                                <button class="btn p-0"><i class="fa fa-eye text-darkcyan"></i></button>
+
+                            </td>
+                        </tr>
+
+                        {% endfor %}
+
+                        {% else %}
+                        <tr class="text-center">
+                            <td colspan=9>There is no Voucher in {{VoucherDate}}</td>
+                        </tr>
+                        {% endif %}
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+<!-- User Role Type Modal -->
+
+<div class="modal fade" tabindex="-1" id="userRoleModal" aria-labelledby="userRoleModal">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header bg-darkcyan">
+                <div class="col-4">
+                    <h4 class="modal-title fs-5 text-aliceblue">User Role Setup</h4>
+                </div>
+                <div class="col-6 d-flex justify-content-end">
+                    <button type="button" class="btn btn-info py-1 me-2" id="saveSystemRole"><span class="me-2"><i
+                                class="fa fa-save"></i></span>Save</button>
+                    <button type="button" class="btn btn-danger py-1" data-bs-dismiss="modal"><span class="me-2"><i
+                                class="fa fa-close"></i></span> Close</button>
+                </div>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <div class="row justify-content-end mb-2">
+                    
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-lg-4">
+                        <div class="mb-2 row">
+                            <label for="systemRoleName"
+                                class="form-label sale-form-label col-5 col-sm-4 mb-1 text-dark text-end px-1">Role Name
+                                :</label>
+                            <div class="input-group user-form col-5 col-sm-8 px-1">
+                                <span class="input-group-text input-group-text-height px-2 py-0">
+                                    <i class="fa fa-font"></i>
+                                </span>
+                                <input type="text" class="form-control sale-form-input" id="systemRoleName">
+                            </div>
+                            <p class="d-none text-warning text-center mt-1 mb-1 sale-form-label" id="requiredRoleName"><span class="me-2"><i
+                    class="fa fa-warning"></i></span>Please fill out this field.</p>
+                        </div>
+                        <div class="mb-2 row">
+                            <label for="systemRoleDesc"
+                                class="form-label sale-form-label col-5 col-sm-4 mb-1 text-dark text-end px-1">Description
+                                :</label>
+                            <div class="input-group user-form col-5 col-sm-8 px-1">
+                                <span class="input-group-text input-group-text-height px-2 py-0">
+                                    <i class="fa fa-file-text"></i>
+                                </span>
+                                <input type="text" class="form-control sale-form-input" id="systemRoleDesc">
+                            </div>
+                            <p class="d-none text-warning text-center mt-1 mb-1 sale-form-label" id="requiredRoleDesc"><span class="me-2"><i
+                                class="fa fa-warning"></i></span>Please fill out this field.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-4">
+                        <div class="row">
+                            <label for="roleStatus"
+                            class="form-label sale-form-label col-5 col-sm-4 mb-1 text-dark text-end px-1">Role Status
+                            :</label>
+                            <div class="col-5 col-sm-8 px-1">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="systemRoleActive"
+                                        style="height: 15px;" checked>
+                                    <label class="form-check-label sale-form-label " for="systemRoleActive">Active</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-4">
+                        <div class="mb-2 row">
+                            <label for="systemRoleTypeRemark"
+                                class="form-label sale-form-label col-5 col-sm-4 mb-1 text-dark text-end px-1">Remark
+                                :</label>
+                            <div class="input-group user-form col-5 col-sm-8 px-1">
+                                <textarea class="form-control" name="" id="systemRoleTypeRemark"
+                                    cols="30" rows="1"></textarea>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-4 col-lg-4">
+                            <div class="mb-2 row">
+                                <label for="roleTypeCreatedDate" class="form-label sale-form-label col-5 col-sm-4 mb-1 text-dark text-end px-1">Created Date :</label>
+                                <div class="input-group user-form col-5 col-sm-8 px-1">
+                                    <span class="input-group-text input-group-text-height px-2 py-0">
+                                        <i class="fa fa-calendar-days"></i>
+                                    </span>
+                                    <input type="text" class="form-control sale-form-input" id="roleTypeCreatedDate">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-4">
+                            <div class="mb-2 row">
+                                <label for="roleTypeCreatedBy" class="form-label sale-form-label col-5 col-sm-4 mb-1 text-dark text-end px-1">Created By :</label>
+                                <div class="input-group user-form col-5 col-sm-8 px-1">
+                                    <span class="input-group-text input-group-text-height px-2 py-0">
+                                        <i class="fa fa-user"></i>
+                                    </span>
+                                    <input type="text" class="form-control sale-form-input" id="roleTypeCreatedBy">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-4">
+                            <div class="mb-2 row">
+                                <label for="roleTypeModifiedDate" class="form-label sale-form-label col-5 col-sm-4 mb-1 text-dark text-end px-1">Modified Date :</label>
+                                <div class="input-group user-form col-5 col-sm-8 px-1">
+                                    <span class="input-group-text input-group-text-height px-2 py-0">
+                                        <i class="fa fa-calendar-days"></i>
+                                    </span>
+                                    <input type="date" class="form-control sale-form-input" id="roleTypeModifiedDate">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-4">
+                            <div class="mb-2 row">
+                                <label for="roleTypeModifiedBy" class="form-label sale-form-label col-5 col-sm-4 mb-1 text-dark text-end px-1">Modified By :</label>
+                                <div class="input-group user-form col-5 col-sm-8 px-1">
+                                    <span class="input-group-text input-group-text-height px-2 py-0">
+                                        <i class="fa fa-user"></i>
+                                    </span>
+                                    <input type="text" class="form-control sale-form-input" id="roleTypeModifiedBy">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-4">
+                            <div class="mb-2 row">
+                                <label for="roleTypeDeleteDate" class="form-label sale-form-label col-5 col-sm-4 mb-1 text-dark text-end px-1">Delete Date :</label>
+                                <div class="input-group user-form col-5 col-sm-8 px-1">
+                                    <span class="input-group-text input-group-text-height px-2 py-0">
+                                        <i class="fa fa-calendar-days"></i>
+                                    </span>
+                                    <input type="date" class="form-control sale-form-input" id="roleTypeDeleteDate">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-4">
+                            <div class="mb-2 row">
+                                <label for="roleTypeDeleteBy" class="form-label sale-form-label col-5 col-sm-4 mb-1 text-dark text-end px-1">Delete By :</label>
+                                <div class="input-group user-form col-5 col-sm-8 px-1">
+                                    <span class="input-group-text input-group-text-height px-2 py-0">
+                                        <i class="fa fa-user"></i>
+                                    </span>
+                                    <input type="text" class="form-control sale-form-input" id="roleTypeDeleteBy">
+                                </div>
+                            </div>
+                        </div> -->
+                    
+                </div>
+                <div class="row justify-content-center bg-aliceblue shadow mx-2 pt-3 pb-1"
+                    style="border-top: 4px solid darkblue;">
+                    <div class="col-12 user-scroll">
+
+                        <table class="table table-bordered text-dark table-responsive"
+                            style="width: 100%; overflow-x: auto; white-space: nowrap;">
+
+                            <thead class="bg-darkcyan text-aliceblue sticky-top">
+                                <th class="text-center" style="width: 15%;">Role Name</th>
+                                <th class="text-center" style="width: 15%;">Description</th>
+                                <th class="text-center" style="width: 15%;">Role Status</th>
+                                <th class="text-center" style="width: 15%;">Created Date</th>
+                                <th class="text-center" style="width: 18%;">Created By</th>
+                                <th class="text-center" style="width: 15%;">Modified Date</th>
+                                <th class="text-center" style="width: 18%;">Modified By</th>
+                                <th class="text-center" style="width: 20%;">Remark</th>
+                                <th class="text-center" style="width: 10%;">Action</th>
+                            </thead>
+
+                            <tbody class="saleVouchers">
+                                {% if systemroles %}
+
+                                {% for systemrole in systemroles %}
+                                <tr>
+                                    <td class="text-center py-1">{{ systemrole.RoleName }}</td>
+                                    <td class="text-center py-1">{{ systemrole.RoleDesc }}</td>
+                                    <td class="text-center py-1">{{ systemrole.RoleStatus }}</td>
+                                    <td class="text-center py-1">{{ systemrole.CreatedDate }}</td>
+                                    <td class="text-center py-1">{{ systemrole.CreatedBy }}</td>
+                                    <td class="text-center py-1">{{ systemrole.ModifiedDate }}</td>
+                                    <td class="text-center py-1">{{ systemrole.ModifiedBy }}</td>
+                                    <td class="text-center py-1">{{ systemrole.Remark }}</td>
+                                    <td class="text-center py-1">
+                                        <button class="btn p-0" id="" data-bs-toggle="modal" data-bs-target="#details"
+                                            onclick="DisplayVoucherDetails(this.id)"><i
+                                                class="fa fa-circle-arrow-up text-dark"></i></button>
+                                        <button class="btn p-0"><i
+                                                class="fa fa-eye pointer text-darkcyan ms-2"></i></button>
+                                    </td>
+                                </tr>
+
+                                {% endfor %}
+
+                                {% else %}
+                                <tr class="text-center">
+                                    <td colspan=9>There is no Record</td>
+                                </tr>
+                                {% endif %}
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- End of User Role Type Modal -->
+
+{% endblock %}
+
+{% block footer%}
+
+    <script type="text/javascript">
+        // -- Save User Account (Update 05/01/23)
+
+            $("#useraccountform").on('submit', function(e){
+
+                e.preventDefault();
+
+               
+
+            let userName = $("#systemUserName").val();
+
+            let displayName = $("#systemDisplayName").val() == "" ? userName : $("#systemDisplayName").val();
+
+            let password = $("#systemUserPassword").val();
+
+            let confirmPassword = $("#systemUserConfirmPass").val();
+
+            let typeOfRole = $("#typeOfRole").val();
+
+
+            let issystemUserActive = $("#systemUserActive").is(":checked");
+            let issystemUserDisabled = $('#systemUserDisabled').is(":checked");
+            let issystemUserLocked = $("#systemUserLocked").is(":checked");
+
+           
+            if(issystemUserActive){
+                var userStatus = $("#systemUserActive").val();
+            }
+            
+            if (issystemUserDisabled){
+                var userStatus = $("#systemUserDisabled").val();
+            }
+            
+            if(issystemUserLocked){
+                var userStatus = $("#systemUserLocked").val();
+            }
+
+            if (userName != "" && password != "" && confirmPassword != "" && typeOfRole != "") {
+
+            var userInfo = {
+
+                
+
+            };
+
+                userInfo.Username = userName;
+                userInfo.Password = password;
+                userInfo.DisplayName = displayName;
+                userInfo.RoleId = typeOfRole,
+                userInfo.Remark = $("#systemUserRemark").val();
+                userInfo.UserStatus = userStatus;
+
+                if(localStorage.getItem('user')){
+                    var userdata = localStorage.getItem('user');
+
+                    userdata  = JSON.parse(userdata);
+
+                   
+                }
+                userInfo.CreatedBy = userdata.Username;
+                console.log(userdata);
+               
+               
+
+                // let userInfo = {};
+
+                userInfo = JSON.stringify(userInfo);
+
+               console.log(userInfo);
+
+                $.ajax({
+                    type: "POST",
+                    url: "/adminstration/useraccountcreate",
+                    data: userInfo,
+                    contentType: "application/json",
+                    success: function (result) {
+
+                        var userdata = JSON.parse(result);
+
+                        if(userdata.success){
+                            
+                            // save in localstorage 
+                            localStorage.setItem('success', "Account Created Successfully");
+
+                            MyFunction();
+                        }else if (userdata.error){
+                            alert(userdata.error);
+                        }
+
+                    
+
+                    },
+                    error: function (result, status) {
+
+                        console.log(result);
+
+                    }
+                });
+
+            } else if (userName == "") {
+
+                $("#systemUserName").addClass("warningMsg");
+
+                $("#requiredUsername").removeClass("d-none");
+
+
+            } else if (password == "") {
+
+                $("#systemUserPassword").addClass("warningMsg");
+
+                $("#requiredPassword").removeClass("d-none");
+
+            } else if (confirmPassword == "") {
+
+                $("#systemUserConfirmPass").addClass("warningMsg");
+
+                $("#requiredConPassword").removeClass("d-none");
+
+            } else if (typeOfRole == "") {
+
+                $("#typeOfRole").addClass("warningMsg");
+
+                $("#requiredSystemRole").removeClass("d-none");
+
+            }
+
+            });
+
+            // -- End of Save User Account
+
+            // -- Change Focus from Role Name to Description
+
+            $("#systemRoleName").on('keypress', function(event) {
+
+            if (event.which == 13) {
+
+                $("#systemRoleDesc").focus();
+
+            }
+
+            });
+
+            // -- End of Change Focus from Role Name to Description
+
+                // -- Change Focus from Description to Remarks
+
+                $("#systemRoleDesc").on('keypress', function(event) {
+
+                if (event.which == 13) {
+
+                    $("#systemRoleTypeRemark").focus();
+
+                }
+
+                });
+
+                // -- End of Change Focus from Description to Remarks
+
+                // -- Check value when blur from Role Name
+
+                $("#systemRoleName").on('blur', function() {
+
+                if ($(this).val != "") {
+
+                    $(this).removeClass("warningMsg");
+
+                    $("#requiredRoleName").addClass("d-none");
+
+                }
+
+                });
+
+                // -- End of check value when blur from Role Name
+
+                // -- Check value when blur from Role Description
+
+                    $("#systemRoleDesc").on('blur', function() {
+
+                    if ($(this).val != "") {
+
+                        $(this).removeClass("warningMsg");
+
+                        $("#requiredRoleDesc").addClass("d-none");
+
+                    }
+
+                    });
+
+                // -- End of check value when blur from Role Description
+
+                // -- Save System Role to database
+
+                        $("#saveSystemRole").on('click', function() {
+
+                            let roleName = $("#systemRoleName").val();
+
+                            let roleDesc = $("#systemRoleDesc").val();
+
+                            let roleStatus = document.getElementById("systemRoleActive").checked ? "Active" : "Disabled";
+
+                            let roleRemark = $("#systemRoleTypeRemark").val();
+
+                            if(localStorage.getItem('user')){
+                                var userdata = localStorage.getItem('user');
+
+                                userdata  = JSON.parse(userdata);
+
+                                var createdBy = userdata.Username;
+                            }
+                        
+
+                            if (roleName != "" && roleDesc != "") {
+
+                                let systemRole = {
+                                    RoleName: roleName,
+                                    RoleDesc: roleDesc,
+                                    RoleStatus: roleStatus,
+                                    Remark: roleRemark,
+                                    CreatedBy: createdBy
+                                }
+
+                                systemRole = JSON.stringify(systemRole);
+
+                                $.ajax({
+                                type: "POST",
+                                url: "/adminstration/systemrolecreate",
+                                data: systemRole,
+                                contentType: "application/json",
+                                success: function (result) {
+
+                                    var userdata = JSON.parse(result);
+
+                                    if(userdata.success){
+                                        
+                                        // save in localstorage 
+                                        localStorage.setItem('success', "Role Created Successfully");
+
+                                        MyFunction();
+                                    }else if (userdata.error){
+                                        alert(userdata.error);
+                                    }
+
+                                
+
+                                },
+                                error: function (result, status) {
+
+                                    console.log(result);
+
+                                }
+                            });
+
+                            } else if (roleName == "") {
+
+                                $("#systemRoleName").addClass("warningMsg");
+
+                                $("#requiredRoleName").removeClass("d-none");
+
+                            } else if (roleDesc == "") {
+
+                                $("#systemRoleDesc").addClass("warningMsg");
+
+                                $("#requiredRoleDesc").removeClass("d-none");
+
+                            }
+
+                            });
+
+                    // -- End of Save System Role to database
+    </script>
+
+    
+ 
+{% endblock %}
